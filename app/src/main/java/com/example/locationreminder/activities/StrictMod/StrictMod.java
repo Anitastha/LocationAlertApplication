@@ -1,4 +1,13 @@
 package com.example.locationreminder.activities.StrictMod;
 
-public class StrictMode {
+import android.os.StrictMode;
+
+public class StrictMod {
+    public static void StrictMode()
+    {
+        StrictMode.ThreadPolicy policy=new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+    }
 }
+
+

@@ -32,7 +32,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:fontFamily="monospace"
-            android:text="Location Based Alarm"
+            android:text="Location Reminder"
             android:textColor="#fff"
             android:textSize="18sp"
             android:textStyle="bold"
@@ -128,6 +128,30 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="About Us"
+            android:paddingLeft="8dp"
+            android:layout_gravity="center_horizontal"
+            android:textColor="#000"
+            />
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#f1f1f1"/>
+    <LinearLayout
+        android:id="@+id/navHelp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/ic_help"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Help"
             android:paddingLeft="8dp"
             android:layout_gravity="center_horizontal"
             android:textColor="#000"
