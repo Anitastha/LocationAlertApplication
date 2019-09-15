@@ -20,7 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="25dp"
-        android:text="Location Based Alarm"
+        android:text="Location Reminder"
         android:textAlignment="center"
         android:textColor="#F0EFE4"
         android:textSize="20sp"
