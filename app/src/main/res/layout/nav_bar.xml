@@ -5,12 +5,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:orientation="vertical"
+    android:background="@drawable/background"
     android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="230dp"
-        android:background="#1D2C4B"
+        android:background="@drawable/background"
         android:id="@+id/constraint">
 
         <ImageView
@@ -32,8 +33,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:text="Location Reminder"
-            android:textColor="#fff"
-            android:textSize="18sp"
+            android:textColor="#090808"
+            android:textSize="20dp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

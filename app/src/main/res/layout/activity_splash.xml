@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:orientation="vertical"
-    android:background="#1D2C4B"
+    android:background="@drawable/background"
     android:gravity="center"
     android:layout_height="match_parent"
     tools:context=".activities.activities.SplashActivity">
@@ -22,7 +22,7 @@
         android:layout_marginTop="25dp"
         android:text="Location Reminder"
         android:textAlignment="center"
-        android:textColor="#F0EFE4"
+        android:textColor="#0A0909"
         android:textSize="20sp"
         android:textStyle="bold" />
 

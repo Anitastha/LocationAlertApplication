@@ -4,7 +4,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:orientation="vertical"
-        android:background="#1D2C4B"
+        android:background="@drawable/background"
         android:layout_height="match_parent"
         tools:context=".activities.activities.SplashActivity">
 
@@ -53,7 +53,7 @@
         android:layout_marginTop="16dp"
         android:text="Location Reminder"
         android:textAlignment="center"
-        android:textColor="#F0EFE4"
+        android:textColor="#0A0909"
         android:textSize="20sp"
         android:textStyle="bold" />
 
@@ -65,7 +65,7 @@
         android:layout_marginTop="20dp"
         android:text="Made by Anita Shrestha"
         android:textAlignment="center"
-        android:textColor="#F0EFE4"
+        android:textColor="#0A0909"
         android:textSize="16dp" />
 
     <TextView
@@ -76,7 +76,7 @@
         android:layout_marginTop="10dp"
         android:text="Never Miss Your Task"
         android:textAlignment="center"
-        android:textColor="#F0EFE4"
+        android:textColor="#0A0909"
         android:textSize="16dp" />
 
 

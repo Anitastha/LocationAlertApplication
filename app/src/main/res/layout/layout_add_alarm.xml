@@ -1,20 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@drawable/background"
     android:padding="16dp">
+    <LinearLayout
+        android:layout_margin="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_margin="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:gravity="center"
-        android:text="Add Alarm" />
+        android:text="Add Alarm"
+        android:textColor="#0C0B0B"
+        android:textSize="20dp"/>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:background="#000" />
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -25,7 +40,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="Name : " />
+            android:text="Name : "
+            android:textColor="#0C0B0B"
+            android:textSize="16dp"/>
 
         <EditText
             android:id="@+id/etName"
@@ -39,7 +56,9 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Task Name : " />
+            android:text="Task Name : "
+            android:textColor="#0C0B0B"
+            android:textSize="16dp"/>
 
         <EditText
             android:id="@+id/etTask"
@@ -57,14 +76,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        android:text="Latitute: 25.23865" />
+        android:text="Latitute: 25.23865"
+        android:textColor="#0C0B0B"
+        android:textSize="16dp"/>
 
     <TextView
         android:id="@+id/tvLongitude"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        android:text="Longitude: 45.234564" />
+        android:text="Longitude: 45.234564"
+        android:textColor="#0C0B0B"
+        android:textSize="16dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -75,20 +98,27 @@
         <Button
             android:id="@+id/btnAdd"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="60dp"
             android:layout_marginRight="2dp"
             android:layout_weight="1"
             android:text="Add"
-            android:textColor="#000" />
+            android:background="@drawable/button"
+            android:textColor="#0C0B0B"
+            android:textSize="18dp"/>
 
         <Button
             android:id="@+id/btnCancel"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="60"
             android:layout_marginLeft="2dp"
             android:layout_weight="1"
             android:text="Cancel"
-            android:textColor="#000" />
+            android:textColor="#0C0B0B"
+            android:textSize="18dp"
+            android:background="@drawable/button"/>
+    </LinearLayout>
+    </LinearLayout>
     </LinearLayout>
 
-</LinearLayout>
+
+</RelativeLayout>
