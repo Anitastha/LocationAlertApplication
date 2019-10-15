@@ -6,4 +6,67 @@
     android:layout_height="match_parent"
     tools:context=".activities.activities.DashboardActivity">
 
+        <android.support.v4.widget.DrawerLayout
+            android:id="@+id/drawerLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="54dp"
+                    android:background="#1D2C4B"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingLeft="16dp">
+
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:onClick="openDrawer"
+                        android:src="@drawable/ic_menu" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="16dp"
+                        android:fontFamily="@font/amiko"
+                        android:text="Dashboard"
+                        android:textColor="#fff"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <fragment
+                    android:id="@+id/map"
+                    android:name="com.google.android.gms.maps.SupportMapFragment"
+                    android:layout_width="match_parent"
+                    android:layout_below="@id/toolbar"
+                    android:layout_height="match_parent" />
+
+                <ImageView
+                    android:id="@+id/imgAddAlarm"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/alarm"
+                    android:layout_centerInParent="true"/>
+
+            </RelativeLayout>
+
+
+
+            <android.support.design.widget.NavigationView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="start">
+
+                <include layout="@layout/nav_bar" />
+            </android.support.design.widget.NavigationView>
+        </android.support.v4.widget.DrawerLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
