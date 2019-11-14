@@ -12,7 +12,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="54dp"
-            android:background="#1D2C4B"
+            android:background="#FF0303"
             android:gravity="center_vertical"
             android:orientation="horizontal"
             android:paddingLeft="16dp">

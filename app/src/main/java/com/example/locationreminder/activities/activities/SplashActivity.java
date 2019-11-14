@@ -11,10 +11,12 @@ import com.example.locationreminder.R;
 public class SplashActivity extends AppCompatActivity {
     private Handler handler;
     private Runnable runnable;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+
         handler = new Handler();
         runnable = new Runnable() {
             @Override
@@ -24,4 +26,5 @@ public class SplashActivity extends AppCompatActivity {
         };
         handler.postDelayed(runnable, 4000);
     }
+
 }

@@ -29,8 +29,6 @@ public class LocationlistActivity extends AppCompatActivity {
     private Sensor mAccelerometer;
     private ShakeDetector shakeDetector;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -99,5 +97,4 @@ public class LocationlistActivity extends AppCompatActivity {
         super.onStop();
         manager.unregisterListener(shakeDetector);
     }
-
 }

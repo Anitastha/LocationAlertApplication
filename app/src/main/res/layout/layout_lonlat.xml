@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="3dp"
+    android:background="@android:color/white"
     android:elevation="3dp"
     android:orientation="horizontal">
 
@@ -11,8 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="16dp"
-        android:background="@drawable/background">
+        android:padding="16dp">
 
         <TextView
             android:id="@+id/tvName"

@@ -14,7 +14,6 @@ import com.example.locationreminder.R;
 
 public class SettingActivity extends AppCompatActivity {
 
-
     private SharedPreferences sharedPreferences;
     private CheckBox iCheckbox, iCheck;
 

@@ -61,15 +61,10 @@ public class DashboardActivity extends AppCompatActivity implements OnMapReadyCa
     private DrawerLayout drawerLayout;
     private GoogleMap map;
     private ImageView imgAddAlarm;
-    private View navHome;
-    private View navTask;
-    private View navSetting;
-    private View navAbout;
-    private View navLogout;
+    private View navHome,navTask,navSetting,navHelp,navAbout,navExit;
     private List<LongLat> longLatList = new ArrayList<>();
     private LocationManager manager;
-    private boolean vibration;
-    private boolean sound;
+    private boolean vibration,sound;
     private int radius;
     private Marker marker;
     private SharedPreferences preferences;
@@ -84,8 +79,9 @@ public class DashboardActivity extends AppCompatActivity implements OnMapReadyCa
         navHome = findViewById(R.id.navHome);
         navTask = findViewById(R.id.navTask);
         navSetting = findViewById(R.id.navSetting);
+        navHelp = findViewById(R.id.navHelp);
         navAbout = findViewById(R.id.navAbout);
-        navLogout = findViewById(R.id.navLogout);
+        navExit = findViewById(R.id.navExit);
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
@@ -93,10 +89,11 @@ public class DashboardActivity extends AppCompatActivity implements OnMapReadyCa
         navHome.setOnClickListener(this);
         navTask.setOnClickListener(this);
         navSetting.setOnClickListener(this);
+        navHelp.setOnClickListener(this);
         navAbout.setOnClickListener(this);
-        navLogout.setOnClickListener(this);
+        navExit.setOnClickListener(this);
 
-        preferences = getSharedPreferences("Location_based_alarm", MODE_PRIVATE);
+        preferences = getSharedPreferences("Location_alert_app", MODE_PRIVATE);
         vibration = preferences.getBoolean("Vibration", false);
         sound = preferences.getBoolean("Sound", false);
         radius = preferences.getInt("radius", 200);
@@ -129,7 +126,7 @@ public class DashboardActivity extends AppCompatActivity implements OnMapReadyCa
 
 
     public void openDrawer(View view) {
-        drawerLayout.openDrawer(GravityCompat.START);
+        drawerLayout.openDrawer(Gravity.START);
     }
 
     @Override
@@ -199,12 +196,12 @@ public class DashboardActivity extends AppCompatActivity implements OnMapReadyCa
             startActivity(new Intent(this, LocationlistActivity.class));
         } else if (v.getId() == R.id.navSetting) {
             startActivity(new Intent(this, SettingActivity.class));
+        }else if (v.getId() ==R.id.navHelp) {
+            startActivity(new Intent(this,HelpActivity.class));
         } else if (v.getId() == R.id.navAbout) {
             startActivity(new Intent(this, AboutActivity.class));
-        } else if (v.getId() == R.id.navLogout) {
-            preferences.edit().putBoolean("isUserLoggedIn", false);
+        } else if (v.getId() == R.id.navExit) {
             finish();
-
         }
 
     }
@@ -313,5 +310,4 @@ public class DashboardActivity extends AppCompatActivity implements OnMapReadyCa
         notificationManager.notify(1, builder.build());
 
     }
-
 }

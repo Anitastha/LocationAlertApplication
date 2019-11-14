@@ -3,12 +3,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/background"
+    android:background="@android:color/white"
     android:padding="16dp">
     <LinearLayout
-        android:layout_margin="10dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
     <LinearLayout
@@ -36,38 +35,31 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="Name : "
-            android:textColor="#0C0B0B"
-            android:textSize="16dp"/>
-
         <EditText
             android:id="@+id/etName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Enter Name"
+            android:textColor="@android:color/black"
+            android:textColorHint="@android:color/darker_gray"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/buttondesign"
             android:inputType="text"
             android:paddingLeft="8dp"
-            android:textSize="12sp"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Task Name : "
-            android:textColor="#0C0B0B"
-            android:textSize="16dp"/>
+            android:textSize="16sp"/>
 
         <EditText
             android:id="@+id/etTask"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Enter Task Name"
+            android:textColor="@android:color/black"
+            android:textColorHint="@android:color/darker_gray"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/buttondesign"
             android:inputType="text"
             android:paddingLeft="8dp"
-            android:textSize="12sp" />
+            android:textSize="16sp" />
 
     </LinearLayout>
 
@@ -75,7 +67,7 @@
         android:id="@+id/tvLatitude"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="10dp"
         android:text="Latitute: 25.23865"
         android:textColor="#0C0B0B"
         android:textSize="16dp"/>
@@ -93,7 +85,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginTop="16dp">
+        android:layout_marginTop="20dp">
 
         <Button
             android:id="@+id/btnAdd"
