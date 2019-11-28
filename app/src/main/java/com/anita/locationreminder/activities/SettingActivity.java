@@ -1,4 +1,4 @@
-package com.example.locationreminder.activities.activities;
+package com.anita.locationreminder.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,7 +10,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.RadioButton;
 
-import com.example.locationreminder.R;
+import com.anita.locationreminder.R;
 
 public class SettingActivity extends AppCompatActivity {
 
@@ -24,7 +24,7 @@ public class SettingActivity extends AppCompatActivity {
         iCheckbox = findViewById(R.id.iCheckbox);
         iCheck = findViewById(R.id.iCheck);
 
-        sharedPreferences = getSharedPreferences("Location_based_alarm", MODE_PRIVATE);
+        sharedPreferences = getSharedPreferences("Location_alert_app", MODE_PRIVATE);
 
         iCheckbox.setChecked(sharedPreferences.getBoolean("Vibration", false));
         iCheck.setChecked(sharedPreferences.getBoolean("Sound", false));

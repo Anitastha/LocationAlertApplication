@@ -1,4 +1,4 @@
-package com.example.locationreminder.activities.activities;
+package com.anita.locationreminder.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -33,11 +33,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.locationreminder.R;
-import com.example.locationreminder.activities.BLL.AddTaskBLL;
-import com.example.locationreminder.activities.StrictMod.StrictMod;
-import com.example.locationreminder.activities.interfaces.Url;
-import com.example.locationreminder.activities.models.LongLat;
+import com.anita.locationreminder.R;
+import com.anita.locationreminder.BLL.AddTaskBLL;
+import com.anita.locationreminder.StrictMod.StrictMod;
+import com.anita.locationreminder.interfaces.Url;
+import com.anita.locationreminder.models.LongLat;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -54,7 +54,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.example.locationreminder.activities.interfaces.Url.cookie;
+import static com.anita.locationreminder.interfaces.Url.cookie;
 
 public class DashboardActivity extends AppCompatActivity implements OnMapReadyCallback, View.OnClickListener, LocationListener {
 
@@ -201,7 +201,10 @@ public class DashboardActivity extends AppCompatActivity implements OnMapReadyCa
         } else if (v.getId() == R.id.navAbout) {
             startActivity(new Intent(this, AboutActivity.class));
         } else if (v.getId() == R.id.navExit) {
+//            android.os.Process.killProcess(android.os.Process.myPid());
+//         System.exit(0);
             finish();
+
         }
 
     }

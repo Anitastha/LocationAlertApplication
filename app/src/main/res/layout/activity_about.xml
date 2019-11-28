@@ -6,7 +6,7 @@
         android:orientation="vertical"
         android:background="@drawable/background"
         android:layout_height="match_parent"
-        tools:context=".activities.activities.SplashActivity">
+        tools:context=".activities.SplashActivity">
 
         <LinearLayout
             android:id="@+id/toolbar"

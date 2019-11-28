@@ -1,4 +1,4 @@
-package com.example.locationreminder.activities.activities;
+package com.anita.locationreminder.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -6,7 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 
-import com.example.locationreminder.R;
+import com.anita.locationreminder.R;
 
 public class SplashActivity extends AppCompatActivity {
     private Handler handler;
@@ -24,7 +24,7 @@ public class SplashActivity extends AppCompatActivity {
                 startActivity(new Intent(SplashActivity.this, DashboardActivity.class));
             }
         };
-        handler.postDelayed(runnable, 4000);
+        handler.postDelayed(runnable, 3000);
     }
 
 }

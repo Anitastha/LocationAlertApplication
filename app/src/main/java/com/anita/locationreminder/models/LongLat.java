@@ -1,4 +1,4 @@
-package com.example.locationreminder.activities.models;
+package com.anita.locationreminder.models;
 
 public class LongLat {
 

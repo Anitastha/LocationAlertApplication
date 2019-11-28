@@ -1,6 +1,6 @@
-package com.example.locationreminder.activities.interfaces;
+package com.anita.locationreminder.interfaces;
 
-import com.example.locationreminder.activities.models.LongLat;
+import com.anita.locationreminder.models.LongLat;
 
 import java.util.List;
 

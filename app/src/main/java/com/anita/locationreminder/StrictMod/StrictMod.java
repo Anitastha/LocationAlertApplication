@@ -1,4 +1,4 @@
-package com.example.locationreminder.activities.StrictMod;
+package com.anita.locationreminder.StrictMod;
 
 import android.os.StrictMode;
 

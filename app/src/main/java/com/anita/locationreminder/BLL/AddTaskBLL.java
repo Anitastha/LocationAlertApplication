@@ -1,14 +1,14 @@
-package com.example.locationreminder.activities.BLL;
+package com.anita.locationreminder.BLL;
 
-import com.example.locationreminder.activities.interfaces.Url;
-import com.example.locationreminder.activities.models.LongLat;
+import com.anita.locationreminder.interfaces.Url;
+import com.anita.locationreminder.models.LongLat;
 
 import java.io.IOException;
 
 import okhttp3.ResponseBody;
 import retrofit2.Response;
 
-import static com.example.locationreminder.activities.interfaces.Url.cookie;
+import static com.anita.locationreminder.interfaces.Url.cookie;
 
 public class AddTaskBLL {
     private LongLat longLat;

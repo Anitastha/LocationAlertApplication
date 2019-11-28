@@ -1,4 +1,4 @@
-package com.example.locationreminder.activities.adapters;
+package com.anita.locationreminder.adapters;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -15,16 +15,17 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.locationreminder.R;
-import com.example.locationreminder.activities.BLL.DeleteTaskBLL;
-import com.example.locationreminder.activities.BLL.UpdateTaskBLL;
-import com.example.locationreminder.activities.StrictMod.StrictMod;
-import com.example.locationreminder.activities.interfaces.Url;
-import com.example.locationreminder.activities.models.LongLat;
+import com.anita.locationreminder.BLL.DeleteTaskBLL;
+import com.anita.locationreminder.BLL.UpdateTaskBLL;
+import com.anita.locationreminder.R;
+import com.anita.locationreminder.StrictMod.StrictMod;
+import com.anita.locationreminder.interfaces.Url;
+import com.anita.locationreminder.models.LongLat;
+
 
 import java.util.List;
 
-import static com.example.locationreminder.activities.interfaces.Url.cookie;
+import static com.anita.locationreminder.interfaces.Url.cookie;
 
 public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.Holder> {
     private Context context;

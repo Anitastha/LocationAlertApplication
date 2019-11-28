@@ -1,4 +1,4 @@
-package com.example.locationreminder.activities.interfaces;
+package com.anita.locationreminder.interfaces;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;

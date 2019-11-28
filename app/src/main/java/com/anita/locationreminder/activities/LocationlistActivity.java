@@ -1,4 +1,4 @@
-package com.example.locationreminder.activities.activities;
+package com.anita.locationreminder.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -10,11 +10,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
-import com.example.locationreminder.R;
-import com.example.locationreminder.activities.adapters.LocationAdapter;
-import com.example.locationreminder.activities.interfaces.Url;
-import com.example.locationreminder.activities.models.LongLat;
-import com.example.locationreminder.activities.utils.ShakeDetector;
+
+import com.anita.locationreminder.R;
+import com.anita.locationreminder.adapters.LocationAdapter;
+import com.anita.locationreminder.interfaces.Url;
+import com.anita.locationreminder.models.LongLat;
+import com.anita.locationreminder.utils.ShakeDetector;
 
 import java.util.List;
 

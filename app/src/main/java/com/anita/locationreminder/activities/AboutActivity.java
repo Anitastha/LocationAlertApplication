@@ -1,11 +1,11 @@
-package com.example.locationreminder.activities.activities;
+package com.anita.locationreminder.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.View;
 
-import com.example.locationreminder.R;
+import com.anita.locationreminder.R;
 
 public class AboutActivity extends AppCompatActivity {
 

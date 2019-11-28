@@ -1,4 +1,4 @@
-package com.example.locationreminder.activities.utils;
+package com.anita.locationreminder.utils;
 
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;

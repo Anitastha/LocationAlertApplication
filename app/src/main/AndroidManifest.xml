@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.locationreminder">
+    package="com.anita.locationreminder">
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
          Google Maps Android API v2, but you must specify either coarse or fine
@@ -19,14 +19,12 @@
         android:supportsRtl="true"
         android:theme="@style/Custome"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activities.activities.HelpActivity"></activity>
-        <!-- <activity android:name=".activities.activities.DashboardActivity"></activity> -->
-        <!-- <activity android:name=".activities.activities.LocationlistActivity" /> -->
-        <activity android:name=".activities.activities.AboutActivity" />
-        <activity android:name=".activities.activities.SettingActivity" />
-        <activity android:name=".activities.activities.DashboardActivity" />
-        <activity android:name=".activities.activities.LocationlistActivity" />
-        <activity android:name=".activities.activities.SplashActivity">
+        <activity android:name=".activities.HelpActivity"></activity>
+        <activity android:name=".activities.AboutActivity" />
+        <activity android:name=".activities.SettingActivity" />
+        <activity android:name=".activities.DashboardActivity" />
+        <activity android:name=".activities.LocationlistActivity" />
+        <activity android:name=".activities.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
