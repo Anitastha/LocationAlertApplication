@@ -8,14 +8,18 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -27,17 +31,23 @@ import android.os.Vibrator;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.Adapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.anita.locationreminder.R;
 import com.anita.locationreminder.BLL.AddTaskBLL;
 import com.anita.locationreminder.StrictMod.StrictMod;
+import com.anita.locationreminder.adapters.LocationAdapter;
 import com.anita.locationreminder.interfaces.Url;
 import com.anita.locationreminder.models.LongLat;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationCallback;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -46,7 +56,7 @@ import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -61,6 +71,7 @@ public class DashboardActivity extends AppCompatActivity implements OnMapReadyCa
     private DrawerLayout drawerLayout;
     private GoogleMap map;
     private ImageView imgAddAlarm;
+    private SearchView search_map;
     private View navHome,navTask,navSetting,navHelp,navAbout,navExit;
     private List<LongLat> longLatList = new ArrayList<>();
     private LocationManager manager;
@@ -82,8 +93,39 @@ public class DashboardActivity extends AppCompatActivity implements OnMapReadyCa
         navHelp = findViewById(R.id.navHelp);
         navAbout = findViewById(R.id.navAbout);
         navExit = findViewById(R.id.navExit);
+        search_map = findViewById(R.id.search_map);
 
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+        final SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
+
+        search_map.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                String location = search_map.getQuery().toString();
+                List<Address> addressList = null;
+                if (location != null || !location.equals("")){
+                    Geocoder geocoder = new Geocoder(DashboardActivity.this);
+                try{
+                    addressList = geocoder.getFromLocationName(location,1);
+                }
+                catch (IOException e){
+                    e.printStackTrace();
+                }
+                Address address = addressList.get(0);
+                LatLng latLng = new LatLng(address.getLatitude(),address.getLongitude());
+                map.addMarker(new MarkerOptions().position(latLng).title(location));
+                map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,15));
+//                map.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+                }
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                return false;
+            }
+        });
+
         mapFragment.getMapAsync(this);
         imgAddAlarm.setOnClickListener(this);
         navHome.setOnClickListener(this);
@@ -92,7 +134,6 @@ public class DashboardActivity extends AppCompatActivity implements OnMapReadyCa
         navHelp.setOnClickListener(this);
         navAbout.setOnClickListener(this);
         navExit.setOnClickListener(this);
-
         preferences = getSharedPreferences("Location_alert_app", MODE_PRIVATE);
         vibration = preferences.getBoolean("Vibration", false);
         sound = preferences.getBoolean("Sound", false);
@@ -113,7 +154,6 @@ public class DashboardActivity extends AppCompatActivity implements OnMapReadyCa
                         options.fillColor(Color.parseColor("#500084d3"));
                         map.addCircle(options);
                     }
-
                 }
             }
 
@@ -126,12 +166,16 @@ public class DashboardActivity extends AppCompatActivity implements OnMapReadyCa
 
 
     public void openDrawer(View view) {
-        drawerLayout.openDrawer(Gravity.START);
+        drawerLayout.openDrawer(Gravity.LEFT);
     }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
         this.map = googleMap;
+        map.getUiSettings().setZoomControlsEnabled(true);
+        map.getUiSettings().setZoomGesturesEnabled(true);
+        map.setMyLocationEnabled(true);
+        map.getUiSettings().setCompassEnabled(true);
         getlonglat();
         manager = (LocationManager) getSystemService(LOCATION_SERVICE);
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -159,7 +203,6 @@ public class DashboardActivity extends AppCompatActivity implements OnMapReadyCa
             TextView tvLongitude = dialog.findViewById(R.id.tvLongitude);
             Button btnAdd = dialog.findViewById(R.id.btnAdd);
             Button btnCancel = dialog.findViewById(R.id.btnCancel);
-
             tvLatitude.setText("Latitude : " + latLng.latitude);
             tvLongitude.setText("Longitude : " + latLng.longitude);
             btnCancel.setOnClickListener(new View.OnClickListener() {
@@ -176,7 +219,6 @@ public class DashboardActivity extends AppCompatActivity implements OnMapReadyCa
                         etName.requestFocus();
                         return;
                     }
-
                     LongLat longLat = new LongLat(etName.getText().toString().trim(), etTask.getText().toString().trim(), Double.toString(latLng.longitude), Double.toString(latLng.latitude));
                     StrictMod.StrictMode();
                     AddTaskBLL bll = new AddTaskBLL(longLat);
@@ -201,12 +243,24 @@ public class DashboardActivity extends AppCompatActivity implements OnMapReadyCa
         } else if (v.getId() == R.id.navAbout) {
             startActivity(new Intent(this, AboutActivity.class));
         } else if (v.getId() == R.id.navExit) {
-//            android.os.Process.killProcess(android.os.Process.myPid());
-//         System.exit(0);
-            finish();
-
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage("Are you sure want to Exit?")
+                    .setCancelable(false)
+                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                           finish();
+                        }
+                    })
+                    .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                           dialogInterface.cancel();
+                        }
+                    });
+            AlertDialog alertDialog = builder.create();
+            alertDialog.show();
         }
-
     }
 
     @Override
@@ -311,6 +365,20 @@ public class DashboardActivity extends AppCompatActivity implements OnMapReadyCa
                 .setStyle(new NotificationCompat.BigTextStyle())
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT);
         notificationManager.notify(1, builder.build());
+
+    }
+
+    //for different view in map
+    public void sateliteview(View view) {
+        if (map.getMapType() == GoogleMap.MAP_TYPE_NORMAL){
+            map.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
+
+    }else if
+        (map.getMapType() == GoogleMap.MAP_TYPE_SATELLITE){
+            map.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+        }else if(map.getMapType() ==GoogleMap.MAP_TYPE_HYBRID){
+            map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+        }
 
     }
 }

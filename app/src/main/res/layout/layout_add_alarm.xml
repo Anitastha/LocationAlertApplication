@@ -21,7 +21,7 @@
         android:layout_height="45dp"
         android:gravity="center"
         android:text="Add Alarm"
-        android:textColor="#0C0B0B"
+        android:textColor="@android:color/black"
         android:textSize="20dp"/>
 
     <View
@@ -69,7 +69,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:text="Latitute: 25.23865"
-        android:textColor="#0C0B0B"
+        android:textColor="@android:color/black"
         android:textSize="16dp"/>
 
     <TextView
@@ -78,7 +78,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:text="Longitude: 45.234564"
-        android:textColor="#0C0B0B"
+        android:textColor="@android:color/black"
         android:textSize="16dp"/>
 
     <LinearLayout
@@ -95,7 +95,7 @@
             android:layout_weight="1"
             android:text="Add"
             android:background="@drawable/button"
-            android:textColor="#0C0B0B"
+            android:textColor="@android:color/black"
             android:textSize="18dp"/>
 
         <Button
@@ -105,7 +105,7 @@
             android:layout_marginLeft="2dp"
             android:layout_weight="1"
             android:text="Cancel"
-            android:textColor="#0C0B0B"
+            android:textColor="@android:color/black"
             android:textSize="18dp"
             android:background="@drawable/button"/>
     </LinearLayout>

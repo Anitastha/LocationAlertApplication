@@ -15,14 +15,14 @@
         android:layout_height="45dp"
         android:gravity="center"
         android:text="Location Reminder"
-        android:textColor="#000"
+        android:textColor="@android:color/black"
         android:textSize="20dp"
         android:textStyle="bold"/>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#000" />
+        android:background="@android:color/black" />
 
     <TextView
         android:id="@+id/tvText"
@@ -40,7 +40,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:text="Dismiss"
-        android:textColor="#0C0B0B"
+        android:textColor="@android:color/black"
         android:textSize="20dp"
         android:background="@drawable/button"/>
     </LinearLayout>

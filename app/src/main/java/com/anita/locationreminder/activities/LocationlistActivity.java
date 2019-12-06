@@ -47,8 +47,6 @@ public class LocationlistActivity extends AppCompatActivity {
         });
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-
         getLongLat();
     }
 

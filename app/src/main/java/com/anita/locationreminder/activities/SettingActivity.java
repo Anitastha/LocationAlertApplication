@@ -1,21 +1,36 @@
 package com.anita.locationreminder.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
+import android.Manifest;
 import android.app.Dialog;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.RadioButton;
+import android.widget.TextView;
 
 import com.anita.locationreminder.R;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 
-public class SettingActivity extends AppCompatActivity {
+public class SettingActivity extends AppCompatActivity{
 
     private SharedPreferences sharedPreferences;
     private CheckBox iCheckbox, iCheck;
+    private TextView tvTone;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +38,7 @@ public class SettingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_setting);
         iCheckbox = findViewById(R.id.iCheckbox);
         iCheck = findViewById(R.id.iCheck);
+        tvTone = findViewById(R.id.tvTone);
 
         sharedPreferences = getSharedPreferences("Location_alert_app", MODE_PRIVATE);
 
@@ -82,4 +98,5 @@ public class SettingActivity extends AppCompatActivity {
 
         dialog.show();
     }
+
 }

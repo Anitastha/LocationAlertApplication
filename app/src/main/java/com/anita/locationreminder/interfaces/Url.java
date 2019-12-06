@@ -11,7 +11,7 @@ public class Url {
         if(retrofit == null){
             retrofit = new Retrofit.Builder()
                     .baseUrl("http://10.0.2.2:4000/")
-//                    .baseUrl("http://172.26.0.152:4000/")
+//                    .baseUrl("http://192.168.31.50:4000/")
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
         }

@@ -2,6 +2,7 @@ package com.anita.locationreminder.adapters;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,15 +16,22 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.anita.locationreminder.BLL.AddTaskBLL;
 import com.anita.locationreminder.BLL.DeleteTaskBLL;
 import com.anita.locationreminder.BLL.UpdateTaskBLL;
 import com.anita.locationreminder.R;
 import com.anita.locationreminder.StrictMod.StrictMod;
+import com.anita.locationreminder.activities.DashboardActivity;
 import com.anita.locationreminder.interfaces.Url;
 import com.anita.locationreminder.models.LongLat;
+import com.google.android.gms.maps.model.LatLng;
 
 
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import static com.anita.locationreminder.interfaces.Url.cookie;
 
@@ -47,6 +55,51 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.Holder
     public void onBindViewHolder(@NonNull Holder holder, int i) {
         final LongLat longLat = longLatList.get(i);
         holder.tvName.setText(longLat.getName());
+        holder.tvTask.setText(longLat.getTask());
+        holder.iGmap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final Dialog dialog = new Dialog(context);
+                dialog.setContentView(R.layout.layout_add_alarm);
+                final EditText etName = dialog.findViewById(R.id.etName);
+                final EditText etTask = dialog.findViewById(R.id.etTask);
+                TextView tvLatitude = dialog.findViewById(R.id.tvLatitude);
+                TextView tvLongitude = dialog.findViewById(R.id.tvLongitude);
+                Button btnAdd = dialog.findViewById(R.id.btnAdd);
+                Button btnCancel = dialog.findViewById(R.id.btnCancel);
+
+                tvLatitude.setText("Latitude : " + longLat.getLat());
+                tvLongitude.setText("Longitude : " + longLat.getLon());
+                etName.setText(longLat.getName());
+                etTask.setText(longLat.getTask());
+                btnCancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
+                    btnAdd.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            if (TextUtils.isEmpty(etName.getText().toString().trim())) {
+                                etName.setError("Please enter name.");
+                                etName.requestFocus();
+                                return;
+                            }
+                          LongLat longLat2 = new LongLat(etName.getText().toString().trim(), etTask.getText().toString().trim(), longLat.getLon(), longLat.getLat());
+                            StrictMod.StrictMode();
+                            AddTaskBLL bll = new AddTaskBLL(longLat2);
+                            if (bll.addTask()) {
+                                Toast.makeText(context, "Alarm Added Successfully.", Toast.LENGTH_SHORT).show();
+                                dialog.dismiss();
+                            } else {
+                                Toast.makeText(context, "Failed to add alarm.", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+                    dialog.show();
+            }
+        });
         holder.iEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -115,13 +168,14 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.Holder
     }
 
     public class Holder extends RecyclerView.ViewHolder {
-        private TextView tvName;
-        private ImageView iEdit;
-        private ImageView iDelete;
+        private TextView tvName, tvTask;
+        private ImageView iGmap, iEdit, iDelete;
 
         public Holder(@NonNull View itemView) {
             super(itemView);
             tvName = itemView.findViewById(R.id.tvName);
+            tvTask = itemView.findViewById(R.id.tvTask);
+            iGmap = itemView.findViewById(R.id.iGmap);
             iEdit = itemView.findViewById(R.id.iEdit);
             iDelete = itemView.findViewById(R.id.iDelete);
         }

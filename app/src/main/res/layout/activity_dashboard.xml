@@ -35,13 +35,15 @@
                     android:onClick="openDrawer"
                     android:src="@drawable/ic_menu" />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="16dp"
-                    android:text="Dashboard"
-                    android:textColor="#fff"
-                    android:textStyle="bold" />
+                <SearchView
+                    android:id="@+id/search_map"
+                    app:queryHint="Search"
+                    android:iconifiedByDefault="false"
+                    android:background="@android:color/white"                    android:layout_marginLeft="10dp"
+                    android:layout_width="350dp"
+                    android:layout_height="wrap_content"/>
+
+
             </LinearLayout>
 
             <fragment
@@ -56,7 +58,16 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_centerInParent="true"
-                android:src="@drawable/alarm" />
+                android:src="@drawable/add_alarm" />
+
+            <ImageView
+                android:id="@+id/satelite"
+                android:layout_width="41dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/imgAddAlarm"
+                android:layout_marginLeft="360dp"
+                android:onClick="sateliteview"
+                android:src="@drawable/ic_satellite" />
 
         </RelativeLayout>
 
