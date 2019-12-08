@@ -105,29 +105,6 @@
         android:layout_height="1dp"
         android:background="#f1f1f1" />
 
-    <RelativeLayout
-        android:id="@+id/navTone"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="16dp">
-
-        <TextView
-            android:id="@+id/tvTone"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:paddingLeft="8dp"
-            android:text="Alarm Tone"
-            android:textColor="@android:color/black"
-            android:onClick="tone"/>
-
-    </RelativeLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#f1f1f1" />
-
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

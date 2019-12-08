@@ -12,22 +12,18 @@ import android.widget.ImageView;
 import com.anita.locationreminder.R;
 
 public class AboutActivity extends AppCompatActivity {
-    private ImageView imageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
-        imageView = findViewById(R.id.imageView);
+
     }
+    //Back click function
     public void goBack(View view) {
         super.onBackPressed();
     }
 
-    public void btnstart(View view) {
-            Animation rotate = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.rotate);
-            imageView.startAnimation(rotate);
-    }
 }
 
 

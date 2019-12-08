@@ -30,7 +30,6 @@ public class SettingActivity extends AppCompatActivity{
 
     private SharedPreferences sharedPreferences;
     private CheckBox iCheckbox, iCheck;
-    private TextView tvTone;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,13 +37,13 @@ public class SettingActivity extends AppCompatActivity{
         setContentView(R.layout.activity_setting);
         iCheckbox = findViewById(R.id.iCheckbox);
         iCheck = findViewById(R.id.iCheck);
-        tvTone = findViewById(R.id.tvTone);
 
-        sharedPreferences = getSharedPreferences("Location_alert_app", MODE_PRIVATE);
+        sharedPreferences = getSharedPreferences("Locationreminder", MODE_PRIVATE);
 
         iCheckbox.setChecked(sharedPreferences.getBoolean("Vibration", false));
         iCheck.setChecked(sharedPreferences.getBoolean("Sound", false));
 
+        //for vibration function
         iCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -52,6 +51,7 @@ public class SettingActivity extends AppCompatActivity{
             }
         });
 
+        //for sound function
         iCheck.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -64,6 +64,7 @@ public class SettingActivity extends AppCompatActivity{
         super.onBackPressed();
     }
 
+    //for gps alarm range function
     public void openAlarmRangeDialog(View view) {
         Dialog dialog = new Dialog(this);
         dialog.setContentView(R.layout.layout_range);

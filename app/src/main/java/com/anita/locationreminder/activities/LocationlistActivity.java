@@ -35,6 +35,7 @@ public class LocationlistActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_locationlist);
 
+        //for shake detector while refresh the activity
         manager = (SensorManager) getSystemService(SENSOR_SERVICE);
         mAccelerometer = manager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         shakeDetector = new ShakeDetector();

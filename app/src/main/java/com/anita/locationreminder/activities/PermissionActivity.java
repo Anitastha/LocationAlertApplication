@@ -29,14 +29,14 @@ Button btnGrant;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_permission);
+        btnGrant = findViewById(R.id.btn_grant);
 
+        //for access one time location permission
         if(ContextCompat.checkSelfPermission(PermissionActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
             startActivity(new Intent(PermissionActivity.this, MapActivity.class));
             finish();
             return;
         }
-
-        btnGrant = findViewById(R.id.btn_grant);
 
         btnGrant.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,7 +46,7 @@ Button btnGrant;
                         .withListener(new PermissionListener() {
                             @Override
                             public void onPermissionGranted(PermissionGrantedResponse response) {
-                                startActivity(new Intent(PermissionActivity.this, DashboardActivity.class));
+                                startActivity(new Intent(PermissionActivity.this, MapActivity.class));
                                 finish();
                             }
 

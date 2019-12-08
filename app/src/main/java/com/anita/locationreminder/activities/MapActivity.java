@@ -16,7 +16,7 @@ public class MapActivity extends AppCompatActivity {
         setContentView(R.layout.activity_map);
 
     }
-
+//for open new activity
     public void btnClick(View view) {
         startActivity(new Intent(MapActivity.this,DashboardActivity.class));
     }

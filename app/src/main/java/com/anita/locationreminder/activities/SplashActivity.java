@@ -8,26 +8,41 @@ import android.os.Handler;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.animation.DecelerateInterpolator;
+import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
 
 import com.anita.locationreminder.R;
 
 public class SplashActivity extends AppCompatActivity {
-    private Handler handler;
-    private Runnable runnable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-        handler = new Handler();
-        runnable = new Runnable() {
+        //for animation splash
+        final ImageView imageView =  (ImageView) findViewById(R.id.imageview);
+        RotateAnimation rotate = new RotateAnimation(0, 360, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+        rotate.setDuration(4000);
+        rotate.setInterpolator(new DecelerateInterpolator());
+        imageView.startAnimation(rotate);
+
+        Thread timer = new Thread(){
             @Override
             public void run() {
-                startActivity(new Intent(SplashActivity.this, PermissionActivity.class));
+                try {
+                    sleep(5000);
+                    Intent intent = new Intent(getApplicationContext(), PermissionActivity.class);
+                    startActivity(intent);
+                    finish();
+                    super.run();
+                }catch (InterruptedException e){
+                    e.printStackTrace();
+                }
             }
         };
-        handler.postDelayed(runnable, 3000);
+        timer.start();
+
     }
 }

@@ -1,5 +1,7 @@
 package com.anita.locationreminder.activities;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
@@ -28,7 +30,9 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
+import android.provider.Settings;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Adapter;
@@ -45,17 +49,16 @@ import com.anita.locationreminder.StrictMod.StrictMod;
 import com.anita.locationreminder.adapters.LocationAdapter;
 import com.anita.locationreminder.interfaces.Url;
 import com.anita.locationreminder.models.LongLat;
-import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationCallback;
-import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -66,16 +69,21 @@ import retrofit2.Response;
 
 import static com.anita.locationreminder.interfaces.Url.cookie;
 
+
 public class DashboardActivity extends AppCompatActivity implements OnMapReadyCallback, View.OnClickListener, LocationListener {
 
     private DrawerLayout drawerLayout;
     private GoogleMap map;
     private ImageView imgAddAlarm;
-    private SearchView search_map;
     private View navHome,navTask,navSetting,navHelp,navAbout,navExit;
+    private SearchView search_map;
+    private Double latitude,longitude;
+    public static final int REQUEST_LOCATION_CODE = 99;
+    int PROXIMITY_RADIUS = 2000;
     private List<LongLat> longLatList = new ArrayList<>();
     private LocationManager manager;
-    private boolean vibration,sound;
+    private boolean vibration;
+    private boolean sound;
     private int radius;
     private Marker marker;
     private SharedPreferences preferences;
@@ -95,9 +103,7 @@ public class DashboardActivity extends AppCompatActivity implements OnMapReadyCa
         navExit = findViewById(R.id.navExit);
         search_map = findViewById(R.id.search_map);
 
-        final SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
-
+        //for Search location
         search_map.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
@@ -115,7 +121,6 @@ public class DashboardActivity extends AppCompatActivity implements OnMapReadyCa
                 LatLng latLng = new LatLng(address.getLatitude(),address.getLongitude());
                 map.addMarker(new MarkerOptions().position(latLng).title(location));
                 map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,15));
-//                map.setMapType(GoogleMap.MAP_TYPE_HYBRID);
                 }
                 return false;
             }
@@ -126,6 +131,7 @@ public class DashboardActivity extends AppCompatActivity implements OnMapReadyCa
             }
         });
 
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
         imgAddAlarm.setOnClickListener(this);
         navHome.setOnClickListener(this);
@@ -134,12 +140,13 @@ public class DashboardActivity extends AppCompatActivity implements OnMapReadyCa
         navHelp.setOnClickListener(this);
         navAbout.setOnClickListener(this);
         navExit.setOnClickListener(this);
-        preferences = getSharedPreferences("Location_alert_app", MODE_PRIVATE);
+        preferences = getSharedPreferences("Locationreminder", MODE_PRIVATE);
         vibration = preferences.getBoolean("Vibration", false);
         sound = preferences.getBoolean("Sound", false);
         radius = preferences.getInt("radius", 200);
     }
 
+    //for show the selected location after adding the location and task
     private void getlonglat() {
         Url.getEndPoints().getlonglat(cookie).enqueue(new Callback<List<LongLat>>() {
             @Override
@@ -154,6 +161,7 @@ public class DashboardActivity extends AppCompatActivity implements OnMapReadyCa
                         options.fillColor(Color.parseColor("#500084d3"));
                         map.addCircle(options);
                     }
+
                 }
             }
 
@@ -163,19 +171,18 @@ public class DashboardActivity extends AppCompatActivity implements OnMapReadyCa
             }
         });
     }
-
-
+    //for open drawer
     public void openDrawer(View view) {
         drawerLayout.openDrawer(Gravity.LEFT);
     }
 
+    //for current location
     @Override
     public void onMapReady(GoogleMap googleMap) {
         this.map = googleMap;
         map.getUiSettings().setZoomControlsEnabled(true);
         map.getUiSettings().setZoomGesturesEnabled(true);
         map.setMyLocationEnabled(true);
-        map.getUiSettings().setCompassEnabled(true);
         getlonglat();
         manager = (LocationManager) getSystemService(LOCATION_SERVICE);
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -190,7 +197,21 @@ public class DashboardActivity extends AppCompatActivity implements OnMapReadyCa
         map.animateCamera(CameraUpdateFactory.newLatLngZoom(myLocation, 15));
         marker = map.addMarker(new MarkerOptions().position(myLocation).title("Me"));
     }
+        //for different view in map
+    public void sateliteview(View view) {
+        if (map.getMapType() == GoogleMap.MAP_TYPE_NORMAL){
+            map.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
 
+    }else if
+        (map.getMapType() == GoogleMap.MAP_TYPE_SATELLITE){
+            map.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+        }else if(map.getMapType() ==GoogleMap.MAP_TYPE_HYBRID){
+            map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+        }
+
+    }
+
+    //for add location and task
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.imgAddAlarm) {
@@ -203,6 +224,7 @@ public class DashboardActivity extends AppCompatActivity implements OnMapReadyCa
             TextView tvLongitude = dialog.findViewById(R.id.tvLongitude);
             Button btnAdd = dialog.findViewById(R.id.btnAdd);
             Button btnCancel = dialog.findViewById(R.id.btnCancel);
+
             tvLatitude.setText("Latitude : " + latLng.latitude);
             tvLongitude.setText("Longitude : " + latLng.longitude);
             btnCancel.setOnClickListener(new View.OnClickListener() {
@@ -232,14 +254,14 @@ public class DashboardActivity extends AppCompatActivity implements OnMapReadyCa
             });
             dialog.show();
         } else if (v.getId() == R.id.navHome) {
-            startActivity(new Intent(this, DashboardActivity.class));
+            startActivity(new Intent(this, MapActivity.class));
             finish();
         } else if (v.getId() == R.id.navTask) {
             startActivity(new Intent(this, LocationlistActivity.class));
         } else if (v.getId() == R.id.navSetting) {
             startActivity(new Intent(this, SettingActivity.class));
-        }else if (v.getId() ==R.id.navHelp) {
-            startActivity(new Intent(this,HelpActivity.class));
+        } else if (v.getId() == R.id.navHelp) {
+            startActivity(new Intent(this, HelpActivity.class));
         } else if (v.getId() == R.id.navAbout) {
             startActivity(new Intent(this, AboutActivity.class));
         } else if (v.getId() == R.id.navExit) {
@@ -261,10 +283,99 @@ public class DashboardActivity extends AppCompatActivity implements OnMapReadyCa
             AlertDialog alertDialog = builder.create();
             alertDialog.show();
         }
+
+//for finding nearbylocation from current location
+        Object dataTransfer[] = new Object[2];
+        GetNearbyPlacesData getNearbyPlacesData = new GetNearbyPlacesData();
+
+        switch(v.getId())
+        {
+            case R.id.search_map:
+                EditText tf_location =  findViewById(R.id.TF_location);
+                String location = tf_location.getText().toString();
+                List<Address> addressList;
+
+
+                if(!location.equals(""))
+                {
+                    Geocoder geocoder = new Geocoder(this);
+
+                    try {
+                        addressList = geocoder.getFromLocationName(location, 5);
+
+                        if(addressList != null)
+                        {
+                            for(int i = 0;i<addressList.size();i++)
+                            {
+                                LatLng latLng = new LatLng(addressList.get(i).getLatitude() , addressList.get(i).getLongitude());
+                                MarkerOptions markerOptions = new MarkerOptions();
+                                markerOptions.position(latLng);
+                                markerOptions.title(location);
+                                map.addMarker(markerOptions);
+                                map.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+                                map.animateCamera(CameraUpdateFactory.zoomTo(10));
+                            }
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+                break;
+
+            case R.id.B_hospitals:
+                map.clear();
+                String hospital = "hospital";
+                String url = getUrl(latitude, longitude, hospital);
+                dataTransfer[0] = map;
+                dataTransfer[1] = url;
+
+                getNearbyPlacesData.execute(dataTransfer);
+                Toast.makeText(DashboardActivity.this, "Showing Nearby hospital", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.B_shopping:
+                map.clear();
+                String shopping_mall = "shopping_mall";
+                url = getUrl(latitude, longitude, shopping_mall);
+                dataTransfer[0] = map;
+                dataTransfer[1] = url;
+
+                getNearbyPlacesData.execute(dataTransfer);
+                Toast.makeText(DashboardActivity.this, "Showing Nearby shopping mall", Toast.LENGTH_SHORT).show();
+                break;
+
+            case R.id.B_supermarket:
+                map.clear();
+                String grocery_or_supermarket = "grocery_or_supermarket";
+                url = getUrl(latitude, longitude, grocery_or_supermarket);
+                dataTransfer[0] = map;
+                dataTransfer[1] = url;
+
+                getNearbyPlacesData.execute(dataTransfer);
+                Toast.makeText(DashboardActivity.this, "Showing Nearby Grocery or Supermarket", Toast.LENGTH_SHORT).show();
+                break;
+
+        }
     }
 
+    private String getUrl(double latitude , double longitude , String nearbyPlace)
+    {
+        StringBuilder googlePlaceUrl = new StringBuilder(" https://maps.googleapis.com/maps/api/place/nearbysearch/json?");
+        googlePlaceUrl.append("location="+latitude+","+longitude);
+        googlePlaceUrl.append("&radius="+PROXIMITY_RADIUS);
+        googlePlaceUrl.append("&type="+nearbyPlace);
+        googlePlaceUrl.append("&sensor=true");
+        googlePlaceUrl.append("&key="+"AIzaSyBXZ3UwEv6aLotx19i2e8xbbqmJV70NWPk");
+
+        Log.d("MapsActivity", "url = "+googlePlaceUrl.toString());
+
+        return googlePlaceUrl.toString();
+    }
+
+    //for location change and run function vibration and ringtone when user reached in the destination
     @Override
     public void onLocationChanged(Location location) {
+        latitude = location.getLatitude();
+        longitude = location.getLongitude();
         LongLat foundLocation = null;
         for (LongLat longLatL : longLatList) {
             Location pointLocation = new Location("");
@@ -346,7 +457,7 @@ public class DashboardActivity extends AppCompatActivity implements OnMapReadyCa
 
     }
 
-
+    //for notification function
     private void showNotification(String title, String desc) {
         NotificationManager notificationManager = getSystemService(NotificationManager.class);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -365,20 +476,6 @@ public class DashboardActivity extends AppCompatActivity implements OnMapReadyCa
                 .setStyle(new NotificationCompat.BigTextStyle())
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT);
         notificationManager.notify(1, builder.build());
-
-    }
-
-    //for different view in map
-    public void sateliteview(View view) {
-        if (map.getMapType() == GoogleMap.MAP_TYPE_NORMAL){
-            map.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
-
-    }else if
-        (map.getMapType() == GoogleMap.MAP_TYPE_SATELLITE){
-            map.setMapType(GoogleMap.MAP_TYPE_HYBRID);
-        }else if(map.getMapType() ==GoogleMap.MAP_TYPE_HYBRID){
-            map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-        }
 
     }
 }

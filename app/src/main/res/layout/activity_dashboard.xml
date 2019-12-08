@@ -20,6 +20,46 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
+            <EditText
+                android:id="@+id/TF_location"
+                android:layout_width="290dp"
+                android:layout_height="45dp"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text="Name"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentStart="true" />
+            <Button
+                android:id="@+id/B_hospitals"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_below="@+id/TF_location"
+                android:layout_alignParentStart="true"
+                android:onClick="onClick"
+                android:text="Hospital" />
+
+            <Button
+                android:id="@+id/B_shopping"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_toEndOf="@+id/B_hospitals"
+                android:layout_below="@+id/TF_location"
+                android:onClick="onClick"
+                android:text="Shopping Mall" />
+
+            <Button
+                android:id="@+id/B_supermarket"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_below="@+id/TF_location"
+                android:layout_toEndOf="@+id/B_shopping"
+                android:onClick="onClick"
+                android:text="Supermarket" />
+
+
             <LinearLayout
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
@@ -37,12 +77,11 @@
 
                 <SearchView
                     android:id="@+id/search_map"
-                    app:queryHint="Search"
-                    android:iconifiedByDefault="false"
-                    android:background="@android:color/white"                    android:layout_marginLeft="10dp"
+                    app:queryHint="Search Location"
+                    android:background="@drawable/buttondesign"
+                    android:layout_marginLeft="10dp"
                     android:layout_width="350dp"
                     android:layout_height="wrap_content"/>
-
 
             </LinearLayout>
 
